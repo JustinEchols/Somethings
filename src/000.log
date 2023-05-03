@@ -1,0 +1,16 @@
+ArrayCount(foo) = 100
+bar[50] = 50
+MemoryMatch(foo, bar, sizeof(foo)) = 1
+bar[50] = 0
+MemoryMatch(foo, bar, sizeof(foo)) = 0
+t.a = 1
+t.d = 4
+t.a = 0
+t.d = 0
+Min(1, 10) = 1
+Min(100, 10) = 10
+Max(1, 10) = 10
+Max(100, 10) = 100
+Clamp(1, 10, 100) = 10
+Clamp(1, 0, 100) = 1
+Clamp(1, 500, 100) = 100

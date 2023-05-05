@@ -1,4 +1,4 @@
-// TODO: 
+// TODO(Justin): 
 // - Helper macros
 // - Linked List Macros
 // - Basic types
@@ -119,8 +119,11 @@
 # define ARCH_ARM64 0
 #endif
 
-//Note(Justin): Helper Macros.
+//
+// NOTE(Justin): Helper Macros.
+//
 
+// NOTE(Justin): Converts preprocessor statements 
 #define Statement(S) do{ S }while(0)
 
 #if !defined(AssertBreak)
@@ -143,7 +146,7 @@
 #define IntFromPtr(p) (unsigned long long)((char *)p - (char *)0)
 #define PtrFromInt(n) (void *)((char *)0 + (n))
 
-//NOTE(Justin): This Member macro can access a member of a struct. However
+// NOTE(Justin): This Member macro can access a member of a struct. However
 // we cannot R/W to the member. Useful for getting offsets.
 
 #define Member(T,m) (((T *)0)->m)
@@ -175,11 +178,187 @@
 #define MemoryMatch(a,b,z) (memcmp((a),(b),(z)) == 0)
 
 #define MemoryCopy(d, s, z) memmove((d), (s), (z))
-#define MemoryCopyStruct(d,s) MemoryCopy((d),(s),\
-											Min(sizeof(*(d)), sizeof(*(s)))
+#define MemoryCopyStruct(d,s) MemoryCopy((d),(s), Min(sizeof(*(d)), sizeof(*(s))))
 
 #define MemoryCopyArray(d, s) MemoryCopy((d), (s), Min(sizeof(d), sizeof(s)))
-#define MemoryCopyTyped(d, s, c) MemoryCopy((d), (s),\
-												Min(sizeof(*(d)), sizeof(*(s)))*(c))
+#define MemoryCopyTyped(d, s, c) MemoryCopy((d), (s), Min(sizeof(*(d)), sizeof(*(s)))*(c))
+
+//Note(Justin): Basic types
+
+#include <stdint.h>
+
+typedef int8_t s8;
+typedef int16_t s16;
+typedef int32_t s32;
+typedef int64_t s64;
+
+typedef uint8_t u8;
+typedef uint16_t u16;
+typedef uint32_t u32;
+typedef uint64_t u64;
+
+typedef s8 b8;
+typedef s16 b16;
+typedef s32 b32;
+typedef s64 b64;
+
+typedef float f32;
+typedef double f64;
+
+// Note(Justin): VoidFunc type for working with, for example,
+// tables of function pointers. For func ptr size correctness.
+
+typedef void VoidFunc(void);
+
+
+//
+// NOTE(Justin): Useful constants
+//
+
+global s8 min_s8	= (s8)0x80;
+global s16 min_s16 = (s16)0x8000;
+global s32 min_s32 = (s32)0x80000000;
+global s64 min_s64 = (s64)0x8000000000000000llu;
+
+global s8 max_s8	= (s8)0x7F;
+global s16 max_s16 = (s16)0x7FFF;
+global s32 max_s32 = (s32)0x7FFFFFFF;
+global s64 max_s64 = (s64)0x7FFFFFFFFFFFFFFFllu;
+
+global u8 max_u8	= 0xFF;
+global u16 max_u16 = 0xFFFF;
+global u32 max_u32 = 0xFFFFFFFF;
+global u64 max_u64 = 0xFFFFFFFFFFFFFFFFllu;
+
+global f32 epsilon_f32 = 1.1920929e-7f;
+global f32 pi_f32 = 3.14159265359f;
+global f32 tau_f32 = 6.28318530718f;
+global f32 e_f32 = 2.71828182846f;
+global f32 gold_big_f32 = 1.61803398875f;
+global f32 gold_small_f32 = 0.61803398875f;
+
+
+global f64 epsilon_f64 = 2.220446e-16;
+global f64 pi_f64 = 3.14159265359;
+global f64 tau_f64 = 6.28318530718;
+global f64 e_f64 = 2.71828182846;
+global f64 gold_big_f64 = 1.61803398875;
+global f64 gold_small_f64 = 0.61803398875;
+
+//
+// Note(Justin): Float constants in order not to have to include anything
+// unecessarily.
+//
+
+function f32 inf_f32(void);
+function f32 neg_inf_f32(void);
+function f64 inf_f64(void);
+function f64 neg_inf_f64(void);
+
+
+
+//
+// Note(Justin): Math functions. ATM will use CRT, but replace eventually.
+//
+
+function f32 abs_f32(f32 x);
+function f64 abs_f64(f64 x);
+
+function f32 sqrt_f32(f32 x);
+function f32 sin_f32(f32 angle);
+function f32 cos_f32(f32 angle);
+function f32 tan_f32(f32 angle);
+function f32 ln_f32(f32 x);
+
+function f64 sqrt_f64(f64 x);
+function f64 sin_f64(f64 angle);
+function f64 cos_f64(f64 angle);
+function f64 tan_f64(f64 angle);
+function f64 ln_f64(f64 x);
+
+
+//
+// NOTE(Justin): Compound types
+//
+
+union V2S32
+{
+	struct
+	{
+		s32 x;
+		s32 y;
+	};
+	s32 v[2];
+};
+
+union V3S32
+{
+	struct
+	{
+		s32 x;
+		s32 y;
+		s32 z;
+	};
+	s32 v[3];
+};
+
+union V4S32
+{
+	struct
+	{
+		s32 x;
+		s32 y;
+		s32 z;
+		s32 w;
+	};
+	s32 v[4];
+};
+
+union V2F32
+{
+	struct
+	{
+		f32 x;
+		f32 y;
+	};
+	f32 v[2];
+};
+
+union V3F32
+{
+	struct
+	{
+		f32 x;
+		f32 y;
+		f32 z;
+	};
+	f32 v[3];
+};
+
+
+//
+// TODO(Justin): Compound type functions
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #define BASE_H
 #endif

@@ -3,8 +3,8 @@
 // Taken from https://www.h-schmidt.net/FloatConverter/IEEE754.html
 
 
-// Trick for getting +- inf. Use union to access 32 bits either as a f32 or u32. 
-// First, store the hex value as u32. Then return it as a f32.
+// Trick for getting +- inf. First, store the hex value as u32. 
+// Then return it as a f32.
 function f32 
 inf_f32(void)
 {

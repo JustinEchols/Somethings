@@ -141,6 +141,13 @@
 #define Glue_(A, B) A##B
 #define Glue(A, B) Glue_(A, B)
 
+#define StackStringBufferName(name) Glue(foo, name)
+#define StackString(name, count) char StackStringBufferName(name)[count];\
+	string name;\
+name.size = count;\
+name.length = 0;\
+name.buff = StackStringBufferName(name);
+
 #define ArrayCount(a) (sizeof(a) / sizeof(*(a)))
 
 #define IntFromPtr(p) (unsigned long long)((char *)p - (char *)0)
@@ -280,6 +287,13 @@ function f64 ln_f64(f64 x);
 //
 // NOTE(Justin): Compound types
 //
+
+struct string
+{
+	u32 size;
+	u32 length;
+	char *buff;
+};
 
 union V2S32
 {

@@ -41,7 +41,7 @@ int main()
 	StdPrint(bar[50]);
 	StdPrint(MemoryMatch(foo, bar, sizeof(foo)));
 
-	MemoryZeroArray(bar);
+	ZeroArray(bar);
 	StdPrint(bar[50]);
 	StdPrint(MemoryMatch(foo, bar, sizeof(foo)));
 
@@ -54,7 +54,7 @@ int main()
 	StdPrint(t.a);
 	StdPrint(t.d);
 
-	MemoryZeroStruct(&t);
+	ZeroStruct(&t);
 	StdPrint(t.a);
 	StdPrint(t.d);
 
@@ -66,20 +66,20 @@ int main()
 	StdPrint(Clamp(1, 0, 100));
 	StdPrint(Clamp(1, 500, 100));
 
-	StdPrint(min_s8);
-	StdPrint(min_s16);
-	StdPrint(min_s32);
-	StdPrintLL(min_s64);
+	StdPrint(S8Min);
+	StdPrint(S16Min);
+	StdPrint(S32Min);
+	StdPrintLL(S64Min);
 
-	StdPrint(max_s8);
-	StdPrint(max_s16);
-	StdPrint(max_s32);
-	StdPrintLL(max_s64);
+	StdPrint(S8Max);
+	StdPrint(S16Max);
+	StdPrint(S32Max);
+	StdPrintLL(S64Max);
 
-	f32 inf = inf_f32();
-	f32 neg_inf = neg_inf_f32();
-	StdPrintF(inf);
-	StdPrintF(neg_inf);
+	f32 FloatMin = F32Min();
+	f32 FloatMinNegative = F32MinNegative();
+	StdPrintF(FloatMin);
+	StdPrintF(FloatMinNegative);
 
 	return(0);
 }

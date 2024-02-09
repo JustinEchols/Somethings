@@ -172,21 +172,19 @@ name.buff = StackStringBufferName(name);
 #define local static
 #define function static
 
-#define c_linkage_begin extern "C"{
-#define c_linkage_end }
-#define c_linkage extern "C"
+#define CLinkageBegin extern "C"{
+#define CLinkageEnd }
+#define CLinkage extern "C"
  
 #include <string.h>
-#define MemoryZero(p,z) memset((p), 0, (z))
-#define MemoryZeroStruct(p) MemoryZero((p), sizeof(*(p)))
-#define MemoryZeroArray(p) MemoryZero((p), sizeof(p))
-#define MemoryZeroTyped(p,c) MemoryZero((p), sizeof(*(p))*(c))
+#define Zero(p,z) memset((p), 0, (z))
+#define ZeroStruct(p) Zero((p), sizeof(*(p)))
+#define ZeroArray(p) Zero((p), sizeof(p))
+#define ZeroTyped(p,c) MemoryZero((p), sizeof(*(p))*(c))
 
 #define MemoryMatch(a,b,z) (memcmp((a),(b),(z)) == 0)
-
 #define MemoryCopy(d, s, z) memmove((d), (s), (z))
 #define MemoryCopyStruct(d,s) MemoryCopy((d),(s), Min(sizeof(*(d)), sizeof(*(s))))
-
 #define MemoryCopyArray(d, s) MemoryCopy((d), (s), Min(sizeof(d), sizeof(s)))
 #define MemoryCopyTyped(d, s, c) MemoryCopy((d), (s), Min(sizeof(*(d)), sizeof(*(s)))*(c))
 
@@ -222,66 +220,64 @@ typedef void VoidFunc(void);
 // NOTE(Justin): Useful constants
 //
 
-global s8 min_s8	= (s8)0x80;
-global s16 min_s16 = (s16)0x8000;
-global s32 min_s32 = (s32)0x80000000;
-global s64 min_s64 = (s64)0x8000000000000000llu;
+global s8 S8Min= (s8)0x80;
+global s16 S16Min = (s16)0x8000;
+global s32 S32Min = (s32)0x80000000;
+global s64 S64Min = (s64)0x8000000000000000llu;
 
-global s8 max_s8	= (s8)0x7F;
-global s16 max_s16 = (s16)0x7FFF;
-global s32 max_s32 = (s32)0x7FFFFFFF;
-global s64 max_s64 = (s64)0x7FFFFFFFFFFFFFFFllu;
+global s8 S8Max = (s8)0x7F;
+global s16 S16Max = (s16)0x7FFF;
+global s32 S32Max = (s32)0x7FFFFFFF;
+global s64 S64Max = (s64)0x7FFFFFFFFFFFFFFFllu;
 
-global u8 max_u8	= 0xFF;
-global u16 max_u16 = 0xFFFF;
-global u32 max_u32 = 0xFFFFFFFF;
-global u64 max_u64 = 0xFFFFFFFFFFFFFFFFllu;
+global u8 U8Max = 0xFF;
+global u16 U16Max = 0xFFFF;
+global u32 U32Max = 0xFFFFFFFF;
+global u64 U64Max = 0xFFFFFFFFFFFFFFFFllu;
 
-global f32 epsilon_f32 = 1.1920929e-7f;
-global f32 pi_f32 = 3.14159265359f;
-global f32 tau_f32 = 6.28318530718f;
-global f32 e_f32 = 2.71828182846f;
-global f32 gold_big_f32 = 1.61803398875f;
-global f32 gold_small_f32 = 0.61803398875f;
+global f32 Epsilon32 = 1.1920929e-7f;
+global f32 PI32 = 3.14159265359f;
+global f32 Tau32 = 6.28318530718f;
+global f32 E32 = 2.71828182846f;
+global f32 GoldenRatioLarge32 = 1.61803398875f;
+global f32 GoldenRatioSmall32 = 0.61803398875f;
 
 
-global f64 epsilon_f64 = 2.220446e-16;
-global f64 pi_f64 = 3.14159265359;
-global f64 tau_f64 = 6.28318530718;
-global f64 e_f64 = 2.71828182846;
-global f64 gold_big_f64 = 1.61803398875;
-global f64 gold_small_f64 = 0.61803398875;
+global f64 Epsilon64 = 2.220446e-16;
+global f64 PI64 = 3.14159265359;
+global f64 Tau64 = 6.28318530718;
+global f64 E64 = 2.71828182846;
+global f64 GoldeRatioLarge64 = 1.61803398875;
+global f64 GolenRatioSmall64 = 0.61803398875;
 
 //
 // Note(Justin): Float constants in order not to have to include anything
 // unecessarily.
 //
 
-function f32 inf_f32(void);
-function f32 neg_inf_f32(void);
-function f64 inf_f64(void);
-function f64 neg_inf_f64(void);
-
-
+function f32 F32Min(void);
+function f32 F32MinNegative(void);
+function f64 F64Min(void);
+function f64 F64MinNegative(void);
 
 //
 // Note(Justin): Math functions. ATM will use CRT, but replace eventually.
 //
 
-function f32 abs_f32(f32 x);
-function f64 abs_f64(f64 x);
+function f32 AbsF32(f32 x);
+function f64 AbsF64(f64 x);
 
-function f32 sqrt_f32(f32 x);
-function f32 sin_f32(f32 angle);
-function f32 cos_f32(f32 angle);
-function f32 tan_f32(f32 angle);
-function f32 ln_f32(f32 x);
+function f32 Sqrt32(f32 x);
+function f32 Sin32(f32 angle);
+function f32 Cos32(f32 angle);
+function f32 Tan32(f32 angle);
+function f32 Ln32(f32 x);
 
-function f64 sqrt_f64(f64 x);
-function f64 sin_f64(f64 angle);
-function f64 cos_f64(f64 angle);
-function f64 tan_f64(f64 angle);
-function f64 ln_f64(f64 x);
+function f64 Sqrt64(f64 x);
+function f64 Sin64(f64 angle);
+function f64 Cos64(f64 angle);
+function f64 Tan64(f64 angle);
+function f64 Ln64(f64 x);
 
 
 //
@@ -290,9 +286,9 @@ function f64 ln_f64(f64 x);
 
 struct string
 {
-	u32 size;
-	u32 length;
-	char *buff;
+	u32 Size;
+	u32 Length;
+	char *Buff;
 };
 
 union V2S32
@@ -353,26 +349,6 @@ union V3F32
 //
 // TODO(Justin): Compound type functions
 //
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #define BASE_H
 #endif

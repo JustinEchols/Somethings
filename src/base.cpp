@@ -6,7 +6,7 @@
 // Trick for getting +- inf. First, store the hex value as u32. 
 // Then return it as a f32.
 function f32 
-inf_f32(void)
+F32Min(void)
 {
 	u32 inf = 0x7f800000;
 	f32 *p = (f32 *)&inf;
@@ -14,7 +14,7 @@ inf_f32(void)
 }
 
 function f32
-neg_inf_f32(void)
+F32MinNegative(void)
 {
 	u32 neg_inf = 0xff800000;
 	f32 *p = (f32 *)&neg_inf;
@@ -22,13 +22,13 @@ neg_inf_f32(void)
 }
 
 function f64
-inf_f64(void)
+F64Min(void)
 {
 
 }
 
 function f64
-neg_inf_f64(void)
+F64MinNegatiwe(void)
 {
 
 }
